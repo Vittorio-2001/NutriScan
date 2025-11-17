@@ -43,24 +43,6 @@ The app combines the essential features of apps like Yuka (barcode scanning, pro
 
 ⸻
 
-📁 Local Persistence
-
-Using UserDefaults with JSON encoding:
-	•	Saves recipes
-	•	Saves scan history
-	•	Loads everything instantly on launch
-
-⸻
-
-🛠️ Tech Stack
-	•	SwiftUI
-	•	AVFoundation (live barcode scanning)
-	•	AsyncImage for remote images
-	•	PhotosPicker (iOS 16+)
-	•	UserDefaults + Codable for persistence
-	•	OpenFoodFacts API for product lookups
-⸻
-
 🚀 How It Works
 
 1. Scan a Product
