@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1A",
+    "name": "Tomato Pasta",
+    "imageName": "pasta",
+    "calories": 320,
+    "prepTime": 20,
+    "difficulty": "Easy",
+    "ingredients": ["Pasta", "Tomato sauce", "Olive oil", "Basil"],
+    "steps": ["Boil water", "Cook pasta", "Heat sauce", "Mix everything"],
+    "category": "Pasta",
+    "isFavorite": false
+  },
+  {
+    "id": "2A",
+    "name": "Fresh Green Salad",
+    "imageName": "salad",
+    "calories": 150,
+    "prepTime": 10,
+    "difficulty": "Easy",
+    "ingredients": ["Lettuce", "Tomato", "Cucumber", "Olive oil"],
+    "steps": ["Wash vegetables", "Cut everything", "Mix"],
+    "category": "Healthy",
+    "isFavorite": false
+  }
+]
+
