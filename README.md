@@ -1,3 +1,5 @@
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/7afacc51-483e-47e7-be50-d841af3e3161" />
+
 🍏 NutriScan — Smart Food Scanner & Recipe Assistant
 
 Your personal nutrition companion, inspired by Yuka & Crouton.
