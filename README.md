@@ -1,7 +1,6 @@
+## 🍏 NutriScan — Smart Food Scanner & Recipe Assistant
 
-🍏 NutriScan — Smart Food Scanner & Recipe Assistant
-
-![Image](./Logo.png)
+![AppImage](./AppImage.png)
 
 ## 📱 Overview
 
