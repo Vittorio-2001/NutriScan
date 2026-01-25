@@ -1,73 +1,37 @@
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/7afacc51-483e-47e7-be50-d841af3e3161" />
 
 🍏 NutriScan — Smart Food Scanner & Recipe Assistant
 
-Your personal nutrition companion, inspired by Yuka & Crouton.
+![Image](./Logo.png)
 
-📱 Overview
+## 📱 Overview
 
 NutriScan is an iOS application built entirely with SwiftUI, designed to scan food products, analyze their nutritional values, and recommend relevant recipes automatically.
 
 The app combines the essential features of apps like Yuka (barcode scanning, product analysis) and Crouton (recipe browsing and creation) into a single, elegant experience.
 
-⸻
+## ✨ Features
 
-✨ Features
+- 📸 Scan food products using the device camera
+- 📊 Retrieve nutritional data from OpenFoodFacts
+- 🍽️ Generate recipe suggestions based on scanned items
+- 📚 Store scan history for quick access
+- 📝 Create and manage custom recipes
+- 📱 Smooth and responsive SwiftUI interface
 
-🔍 Scan Products (Barcode Scanner)
-	•	Instant barcode detection
-	•	Product data fetched from OpenFoodFacts API
-	•	Auto-generated nutrition sheet (calories, fats, sugars, proteins)
-	•	Health score (1–100)
-	•	Suggested recipes based on the scanned item
+## 📦 Technologies Used
 
-⸻
+- SwiftUI — User interface
+- AVFoundation — Barcode scanning
+- URLSession — Networking
+- Codable — JSON parsing
+- Local Storage — Data persistence
+- OpenFoodFacts API — Nutrition data
+  
+> [!IMPORTANT]
+> NutriScan relies on third-party APIs for retrieving nutritional data. The accuracy and completeness of information depend on the OpenFoodFacts database. Always verify critical dietary information independently, especially in case of allergies or medical conditions.
 
-📚 Recipe Library
-	•	View all recipes in a clean Crouton-like layout
-	•	Add new recipes with:
-	•	photo picker (from library)
-	•	ingredients
-	•	preparation steps
-	•	prep time
-	•	calories
-	•	category
-	•	Recipes are stored locally and persist across app launches
+## 🔏 Privacy
 
-⸻
+NutriScan respects your privacy and does not collect, store, or sell personal user data.
 
-📜 Scan History
-	•	Every scanned product is saved automatically
-	•	Persistent storage
-	•	Tap any product to view its nutritional details
-	•	Suggested recipes appear based on the product
-	•	Option to clear history with one tap
-
-⸻
-
-🚀 How It Works
-
-1. Scan a Product
-
-The camera detects a barcode →
-The app calls OpenFoodFacts →
-Creates a ScannedProduct →
-Saves it to history →
-Shows a detailed bottom sheet.
-
-2. Explore Recipes
-
-Users can:
-	•	scroll through recipes
-	•	create new ones
-	•	view them with images
-	•	search + filter (if implemented)
-
-3. Suggested Recipes
-
-Matches product keywords with:
-	•	recipe name
-	•	ingredients
-
-Returns the best 3 suggestions.
-
+All scanned information and personal recipes are stored locally on the device. The app only connects to the internet to retrieve public food data from OpenFoodFacts.
