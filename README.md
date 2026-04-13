@@ -1,6 +1,6 @@
-## 🍏 NutriScan — Smart Food Scanner & Recipe Assistant
+## 🍏 NutriScan — Smart Food Scanner & Recipe Creation
 
-![Logo](./Logo.png)
+![Banner](./Banner.png)
 
 ## 📱 Overview
 
@@ -12,7 +12,6 @@ The app combines the essential features of apps like Yuka (barcode scanning, pro
 
 - 📸 Scan food products using the device camera
 - 📊 Retrieve nutritional data from OpenFoodFacts
-- 🍽️ Generate recipe suggestions based on scanned items
 - 📚 Store scan history for quick access
 - 📝 Create and manage custom recipes
 - 📱 Smooth and responsive SwiftUI interface
