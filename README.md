@@ -4,7 +4,7 @@
 
 ## 📱 Overview
 
-NutriScan is an iOS application built entirely with SwiftUI, designed to scan food products, analyze their nutritional values, and recommend relevant recipes automatically.
+NutriScan is an iOS application built entirely with SwiftUI that allows users to scan food products, analyze their nutritional values, and create personalized recipes.
 
 The app combines the essential features of apps like Yuka (barcode scanning, product analysis) and Crouton (recipe browsing and creation) into a single, elegant experience.
 
