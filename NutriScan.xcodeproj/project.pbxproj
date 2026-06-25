@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F8987CFE2FED7E810068FF7E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE62FED7E810068FF7E /* HistoryView.swift */; };
+		F8987CFF2FED7E810068FF7E /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE42FED7E810068FF7E /* HistoryRow.swift */; };
+		F8987D002FED7E810068FF7E /* RecipeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF72FED7E810068FF7E /* RecipeStorage.swift */; };
+		F8987D012FED7E810068FF7E /* ProductBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CED2FED7E810068FF7E /* ProductBottomSheet.swift */; };
+		F8987D022FED7E810068FF7E /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CFB2FED7E810068FF7E /* BarcodeScannerView.swift */; };
+		F8987D032FED7E810068FF7E /* OpenFoodFactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE02FED7E810068FF7E /* OpenFoodFactsService.swift */; };
+		F8987D042FED7E810068FF7E /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CEA2FED7E810068FF7E /* HapticManager.swift */; };
+		F8987D052FED7E810068FF7E /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE22FED7E810068FF7E /* HistoryItem.swift */; };
+		F8987D062FED7E810068FF7E /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF42FED7E810068FF7E /* RecipeDetailView.swift */; };
+		F8987D072FED7E810068FF7E /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF12FED7E810068FF7E /* Recipe.swift */; };
+		F8987D082FED7E810068FF7E /* HistoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE52FED7E810068FF7E /* HistoryStorage.swift */; };
+		F8987D092FED7E810068FF7E /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CFC2FED7E810068FF7E /* ScanView.swift */; };
+		F8987D0A2FED7E810068FF7E /* NutriScanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CEB2FED7E810068FF7E /* NutriScanApp.swift */; };
+		F8987D0B2FED7E810068FF7E /* RecipeSuggestionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF82FED7E810068FF7E /* RecipeSuggestionEngine.swift */; };
+		F8987D0C2FED7E810068FF7E /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE92FED7E810068FF7E /* ContainerView.swift */; };
+		F8987D0D2FED7E810068FF7E /* HistoryProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE32FED7E810068FF7E /* HistoryProductDetailView.swift */; };
+		F8987D0E2FED7E810068FF7E /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CDF2FED7E810068FF7E /* LocalDatabase.swift */; };
+		F8987D0F2FED7E810068FF7E /* RecipeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF52FED7E810068FF7E /* RecipeFormView.swift */; };
+		F8987D102FED7E810068FF7E /* RecipeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF22FED7E810068FF7E /* RecipeCardView.swift */; };
+		F8987D112FED7E810068FF7E /* ScannedProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CEE2FED7E810068FF7E /* ScannedProduct.swift */; };
+		F8987D122FED7E810068FF7E /* RecipeCroutonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF32FED7E810068FF7E /* RecipeCroutonCard.swift */; };
+		F8987D132FED7E810068FF7E /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF92FED7E810068FF7E /* RecipesView.swift */; };
+		F8987D142FED7E810068FF7E /* Banner.png in Resources */ = {isa = PBXBuildFile; fileRef = F8987CDE2FED7E810068FF7E /* Banner.png */; };
+		F8987D152FED7E810068FF7E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8987CF02FED7E810068FF7E /* README.md */; };
+		F8987D162FED7E810068FF7E /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = F8987CF62FED7E810068FF7E /* recipes.json */; };
+		F8987D172FED7E810068FF7E /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F8987CE82FED7E810068FF7E /* LICENSE */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F8987CD02FED7E6B0068FF7E /* NutriScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutriScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8987CDE2FED7E810068FF7E /* Banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Banner.png; sourceTree = "<group>"; };
+		F8987CDF2FED7E810068FF7E /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		F8987CE02FED7E810068FF7E /* OpenFoodFactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsService.swift; sourceTree = "<group>"; };
+		F8987CE22FED7E810068FF7E /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
+		F8987CE32FED7E810068FF7E /* HistoryProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProductDetailView.swift; sourceTree = "<group>"; };
+		F8987CE42FED7E810068FF7E /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
+		F8987CE52FED7E810068FF7E /* HistoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStorage.swift; sourceTree = "<group>"; };
+		F8987CE62FED7E810068FF7E /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		F8987CE82FED7E810068FF7E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		F8987CE92FED7E810068FF7E /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		F8987CEA2FED7E810068FF7E /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		F8987CEB2FED7E810068FF7E /* NutriScanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutriScanApp.swift; sourceTree = "<group>"; };
+		F8987CED2FED7E810068FF7E /* ProductBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBottomSheet.swift; sourceTree = "<group>"; };
+		F8987CEE2FED7E810068FF7E /* ScannedProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProduct.swift; sourceTree = "<group>"; };
+		F8987CF02FED7E810068FF7E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F8987CF12FED7E810068FF7E /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		F8987CF22FED7E810068FF7E /* RecipeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCardView.swift; sourceTree = "<group>"; };
+		F8987CF32FED7E810068FF7E /* RecipeCroutonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCroutonCard.swift; sourceTree = "<group>"; };
+		F8987CF42FED7E810068FF7E /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		F8987CF52FED7E810068FF7E /* RecipeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFormView.swift; sourceTree = "<group>"; };
+		F8987CF62FED7E810068FF7E /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
+		F8987CF72FED7E810068FF7E /* RecipeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeStorage.swift; sourceTree = "<group>"; };
+		F8987CF82FED7E810068FF7E /* RecipeSuggestionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSuggestionEngine.swift; sourceTree = "<group>"; };
+		F8987CF92FED7E810068FF7E /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
+		F8987CFB2FED7E810068FF7E /* BarcodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
+		F8987CFC2FED7E810068FF7E /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F8987CD22FED7E6B0068FF7E /* NutriScan */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NutriScan;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F8987CCD2FED7E6B0068FF7E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F8987CC72FED7E6B0068FF7E = {
+			isa = PBXGroup;
+			children = (
+				F8987CD22FED7E6B0068FF7E /* NutriScan */,
+				F8987CD12FED7E6B0068FF7E /* Products */,
+				F8987CDE2FED7E810068FF7E /* Banner.png */,
+				F8987CE12FED7E810068FF7E /* Database */,
+				F8987CE72FED7E810068FF7E /* History */,
+				F8987CE82FED7E810068FF7E /* LICENSE */,
+				F8987CEC2FED7E810068FF7E /* Main */,
+				F8987CEF2FED7E810068FF7E /* Product */,
+				F8987CF02FED7E810068FF7E /* README.md */,
+				F8987CFA2FED7E810068FF7E /* Recipes */,
+				F8987CFD2FED7E810068FF7E /* Scanner */,
+			);
+			sourceTree = "<group>";
+		};
+		F8987CD12FED7E6B0068FF7E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8987CD02FED7E6B0068FF7E /* NutriScan.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8987CE12FED7E810068FF7E /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				F8987CDF2FED7E810068FF7E /* LocalDatabase.swift */,
+				F8987CE02FED7E810068FF7E /* OpenFoodFactsService.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		F8987CE72FED7E810068FF7E /* History */ = {
+			isa = PBXGroup;
+			children = (
+				F8987CE22FED7E810068FF7E /* HistoryItem.swift */,
+				F8987CE32FED7E810068FF7E /* HistoryProductDetailView.swift */,
+				F8987CE42FED7E810068FF7E /* HistoryRow.swift */,
+				F8987CE52FED7E810068FF7E /* HistoryStorage.swift */,
+				F8987CE62FED7E810068FF7E /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		F8987CEC2FED7E810068FF7E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F8987CE92FED7E810068FF7E /* ContainerView.swift */,
+				F8987CEA2FED7E810068FF7E /* HapticManager.swift */,
+				F8987CEB2FED7E810068FF7E /* NutriScanApp.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		F8987CEF2FED7E810068FF7E /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				F8987CED2FED7E810068FF7E /* ProductBottomSheet.swift */,
+				F8987CEE2FED7E810068FF7E /* ScannedProduct.swift */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
+		F8987CFA2FED7E810068FF7E /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				F8987CF12FED7E810068FF7E /* Recipe.swift */,
+				F8987CF22FED7E810068FF7E /* RecipeCardView.swift */,
+				F8987CF32FED7E810068FF7E /* RecipeCroutonCard.swift */,
+				F8987CF42FED7E810068FF7E /* RecipeDetailView.swift */,
+				F8987CF52FED7E810068FF7E /* RecipeFormView.swift */,
+				F8987CF62FED7E810068FF7E /* recipes.json */,
+				F8987CF72FED7E810068FF7E /* RecipeStorage.swift */,
+				F8987CF82FED7E810068FF7E /* RecipeSuggestionEngine.swift */,
+				F8987CF92FED7E810068FF7E /* RecipesView.swift */,
+			);
+			path = Recipes;
+			sourceTree = "<group>";
+		};
+		F8987CFD2FED7E810068FF7E /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				F8987CFB2FED7E810068FF7E /* BarcodeScannerView.swift */,
+				F8987CFC2FED7E810068FF7E /* ScanView.swift */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F8987CCF2FED7E6B0068FF7E /* NutriScan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8987CDB2FED7E6C0068FF7E /* Build configuration list for PBXNativeTarget "NutriScan" */;
+			buildPhases = (
+				F8987CCC2FED7E6B0068FF7E /* Sources */,
+				F8987CCD2FED7E6B0068FF7E /* Frameworks */,
+				F8987CCE2FED7E6B0068FF7E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F8987CD22FED7E6B0068FF7E /* NutriScan */,
+			);
+			name = NutriScan;
+			packageProductDependencies = (
+			);
+			productName = NutriScan;
+			productReference = F8987CD02FED7E6B0068FF7E /* NutriScan.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F8987CC82FED7E6B0068FF7E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					F8987CCF2FED7E6B0068FF7E = {
+						CreatedOnToolsVersion = 26.5;
+					};
+				};
+			};
+			buildConfigurationList = F8987CCB2FED7E6B0068FF7E /* Build configuration list for PBXProject "NutriScan" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F8987CC72FED7E6B0068FF7E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F8987CD12FED7E6B0068FF7E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F8987CCF2FED7E6B0068FF7E /* NutriScan */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F8987CCE2FED7E6B0068FF7E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8987D142FED7E810068FF7E /* Banner.png in Resources */,
+				F8987D152FED7E810068FF7E /* README.md in Resources */,
+				F8987D162FED7E810068FF7E /* recipes.json in Resources */,
+				F8987D172FED7E810068FF7E /* LICENSE in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F8987CCC2FED7E6B0068FF7E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8987CFE2FED7E810068FF7E /* HistoryView.swift in Sources */,
+				F8987CFF2FED7E810068FF7E /* HistoryRow.swift in Sources */,
+				F8987D002FED7E810068FF7E /* RecipeStorage.swift in Sources */,
+				F8987D012FED7E810068FF7E /* ProductBottomSheet.swift in Sources */,
+				F8987D022FED7E810068FF7E /* BarcodeScannerView.swift in Sources */,
+				F8987D032FED7E810068FF7E /* OpenFoodFactsService.swift in Sources */,
+				F8987D042FED7E810068FF7E /* HapticManager.swift in Sources */,
+				F8987D052FED7E810068FF7E /* HistoryItem.swift in Sources */,
+				F8987D062FED7E810068FF7E /* RecipeDetailView.swift in Sources */,
+				F8987D072FED7E810068FF7E /* Recipe.swift in Sources */,
+				F8987D082FED7E810068FF7E /* HistoryStorage.swift in Sources */,
+				F8987D092FED7E810068FF7E /* ScanView.swift in Sources */,
+				F8987D0A2FED7E810068FF7E /* NutriScanApp.swift in Sources */,
+				F8987D0B2FED7E810068FF7E /* RecipeSuggestionEngine.swift in Sources */,
+				F8987D0C2FED7E810068FF7E /* ContainerView.swift in Sources */,
+				F8987D0D2FED7E810068FF7E /* HistoryProductDetailView.swift in Sources */,
+				F8987D0E2FED7E810068FF7E /* LocalDatabase.swift in Sources */,
+				F8987D0F2FED7E810068FF7E /* RecipeFormView.swift in Sources */,
+				F8987D102FED7E810068FF7E /* RecipeCardView.swift in Sources */,
+				F8987D112FED7E810068FF7E /* ScannedProduct.swift in Sources */,
+				F8987D122FED7E810068FF7E /* RecipeCroutonCard.swift in Sources */,
+				F8987D132FED7E810068FF7E /* RecipesView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F8987CD92FED7E6C0068FF7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = YQ359H3655;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F8987CDA2FED7E6C0068FF7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = YQ359H3655;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F8987CDC2FED7E6C0068FF7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YQ359H3655;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vittoriomonfrecola.NutriScan;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F8987CDD2FED7E6C0068FF7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YQ359H3655;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vittoriomonfrecola.NutriScan;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F8987CCB2FED7E6B0068FF7E /* Build configuration list for PBXProject "NutriScan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8987CD92FED7E6C0068FF7E /* Debug */,
+				F8987CDA2FED7E6C0068FF7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8987CDB2FED7E6C0068FF7E /* Build configuration list for PBXNativeTarget "NutriScan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8987CDC2FED7E6C0068FF7E /* Debug */,
+				F8987CDD2FED7E6C0068FF7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F8987CC82FED7E6B0068FF7E /* Project object */;
+}
