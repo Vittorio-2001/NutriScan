@@ -8,103 +8,52 @@
 import Foundation
 
 struct RecipeSuggestionEngine {
-    
-    static func suggestedRecipes(for product: ScannedProduct, from allRecipes: [Recipe]) -> [Recipe] {
-        
-        let productName = product.name.lowercased()
-        
-        let productKeywords = extractKeywords(from: productName)
-        let mappedCategory = mapCategory(from: productName)
-        
-        // Step 1: Scoring
-        let scored = allRecipes.map { recipe in
-            let score = scoreRecipe(recipe,
-                                    productKeywords: productKeywords,
-                                    mappedCategory: mappedCategory)
+
+    static func suggestedRecipes(for product: ScannedProduct, from recipes: [Recipe]) -> [Recipe] {
+        let scored: [(Recipe, Int)] = recipes.map { recipe in
+            let score = computeScore(product: product, recipe: recipe)
             return (recipe, score)
         }
-        
-        // Step 2: eliminiamo le ricette completamente irrilevanti
-        let filtered = scored.filter { $0.1 >= 8 }   // punteggio minimo 8
-        
-        // Step 3: ordiniamo per punteggio
-        let sorted = filtered.sorted { $0.1 > $1.1 }
-        
-        // Step 4: restituiamo SOLO le prime 1-2
-        return Array(sorted.prefix(2)).map { $0.0 }
+
+        return scored
+            .sorted { $0.1 > $1.1 }   // ordine decrescente deterministico
+            .prefix(3)
+            .map { $0.0 }
     }
-    
-    
-    // MARK: - SCORING
-    
-    private static func scoreRecipe(_ recipe: Recipe,
-                                    productKeywords: [String],
-                                    mappedCategory: String?) -> Int {
-        
+
+    // MARK: - Scoring (deterministico)
+
+    private static func computeScore(product: ScannedProduct, recipe: Recipe) -> Int {
         var score = 0
-        
-        let name = recipe.name.lowercased()
-        let cat = recipe.category.lowercased()
-        
-        // 1) Match nome ricetta
-        for key in productKeywords {
-            if name.contains(key) { score += 8 }
+
+        // Prodotto proteico → preferisci ricette con carne/pesce
+        if product.proteins > 15 {
+            if recipe.category == "Meat" || recipe.category == "Fish" { score += 3 }
         }
-        
-        // 2) Match categoria mappata
-        if let mapped = mappedCategory {
-            if cat.contains(mapped.lowercased()) { score += 10 }
+
+        // Prodotto calorico → favorisci ricette light
+        if product.calories > 400 {
+            if recipe.category == "Salad" || recipe.category == "Healthy" { score += 3 }
+            if recipe.calories < 300 { score += 2 }
         }
-        
-        // 3) Casi speciali
-        if mappedCategory == "Healthy" && cat.contains("healthy") {
-            score += 12
+
+        // Poche calorie → ricette più elaborate
+        if product.calories < 100 {
+            if recipe.category == "Pasta" || recipe.category == "Soup" { score += 2 }
         }
-        
-        if mappedCategory == "Snack" && cat.contains("snack") {
-            score += 12
+
+        // Prodotto con molto zucchero → dessert o ricette semplici
+        if product.sugars > 20 {
+            if recipe.category == "Dessert" { score += 2 }
         }
-        
-        // 4) Bonus minimo per variare
-        score += Int.random(in: 0...1)
-        
+
+        // Preferisci ricette veloci e semplici di default
+        if recipe.prepTime <= 20 { score += 1 }
+        if recipe.difficulty == "Easy" { score += 1 }
+
+        // Ricette preferite in cima
+        if recipe.isFavorite { score += 2 }
+
         return score
-    }
-    
-    
-    // MARK: - KEYWORDS EXTRACTOR
-    
-    private static func extractKeywords(from name: String) -> [String] {
-        
-        let blacklist = ["the", "and", "with", "taste", "original", "fresh"]
-        
-        return name
-            .replacingOccurrences(of: "-", with: " ")
-            .split(separator: " ")
-            .map { String($0).lowercased() }
-            .filter { !blacklist.contains($0) && $0.count > 2 }
-    }
-    
-    
-    // MARK: - CATEGORY MAPPING
-    
-    private static func mapCategory(from name: String) -> String? {
-        
-        let n = name.lowercased()
-        
-        if n.contains("insalata") || n.contains("salad") {
-            return "Healthy"
-        }
-        if n.contains("pasta") || n.contains("barilla") {
-            return "Pasta"
-        }
-        if n.contains("chips") || n.contains("snack") || n.contains("pringles") {
-            return "Snack"
-        }
-        if n.contains("yogurt") {
-            return "Breakfast"
-        }
-        
-        return nil
     }
 }

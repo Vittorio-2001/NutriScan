@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8951F312FEEBAE20050AB41 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8951F302FEEBAE20050AB41 /* Media.xcassets */; };
 		F8987CFE2FED7E810068FF7E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE62FED7E810068FF7E /* HistoryView.swift */; };
 		F8987CFF2FED7E810068FF7E /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CE42FED7E810068FF7E /* HistoryRow.swift */; };
 		F8987D002FED7E810068FF7E /* RecipeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF72FED7E810068FF7E /* RecipeStorage.swift */; };
@@ -31,11 +32,11 @@
 		F8987D132FED7E810068FF7E /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8987CF92FED7E810068FF7E /* RecipesView.swift */; };
 		F8987D142FED7E810068FF7E /* Banner.png in Resources */ = {isa = PBXBuildFile; fileRef = F8987CDE2FED7E810068FF7E /* Banner.png */; };
 		F8987D152FED7E810068FF7E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8987CF02FED7E810068FF7E /* README.md */; };
-		F8987D162FED7E810068FF7E /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = F8987CF62FED7E810068FF7E /* recipes.json */; };
 		F8987D172FED7E810068FF7E /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F8987CE82FED7E810068FF7E /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F8951F302FEEBAE20050AB41 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		F8987CD02FED7E6B0068FF7E /* NutriScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NutriScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8987CDE2FED7E810068FF7E /* Banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Banner.png; sourceTree = "<group>"; };
 		F8987CDF2FED7E810068FF7E /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
@@ -57,21 +58,12 @@
 		F8987CF32FED7E810068FF7E /* RecipeCroutonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCroutonCard.swift; sourceTree = "<group>"; };
 		F8987CF42FED7E810068FF7E /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
 		F8987CF52FED7E810068FF7E /* RecipeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFormView.swift; sourceTree = "<group>"; };
-		F8987CF62FED7E810068FF7E /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
 		F8987CF72FED7E810068FF7E /* RecipeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeStorage.swift; sourceTree = "<group>"; };
 		F8987CF82FED7E810068FF7E /* RecipeSuggestionEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSuggestionEngine.swift; sourceTree = "<group>"; };
 		F8987CF92FED7E810068FF7E /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
 		F8987CFB2FED7E810068FF7E /* BarcodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
 		F8987CFC2FED7E810068FF7E /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		F8987CD22FED7E6B0068FF7E /* NutriScan */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = NutriScan;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F8987CCD2FED7E6B0068FF7E /* Frameworks */ = {
@@ -87,9 +79,9 @@
 		F8987CC72FED7E6B0068FF7E = {
 			isa = PBXGroup;
 			children = (
-				F8987CD22FED7E6B0068FF7E /* NutriScan */,
-				F8987CD12FED7E6B0068FF7E /* Products */,
+				F8951F302FEEBAE20050AB41 /* Media.xcassets */,
 				F8987CDE2FED7E810068FF7E /* Banner.png */,
+				F8987CD12FED7E6B0068FF7E /* Products */,
 				F8987CE12FED7E810068FF7E /* Database */,
 				F8987CE72FED7E810068FF7E /* History */,
 				F8987CE82FED7E810068FF7E /* LICENSE */,
@@ -157,7 +149,6 @@
 				F8987CF32FED7E810068FF7E /* RecipeCroutonCard.swift */,
 				F8987CF42FED7E810068FF7E /* RecipeDetailView.swift */,
 				F8987CF52FED7E810068FF7E /* RecipeFormView.swift */,
-				F8987CF62FED7E810068FF7E /* recipes.json */,
 				F8987CF72FED7E810068FF7E /* RecipeStorage.swift */,
 				F8987CF82FED7E810068FF7E /* RecipeSuggestionEngine.swift */,
 				F8987CF92FED7E810068FF7E /* RecipesView.swift */,
@@ -188,9 +179,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				F8987CD22FED7E6B0068FF7E /* NutriScan */,
 			);
 			name = NutriScan;
 			packageProductDependencies = (
@@ -238,9 +226,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8951F312FEEBAE20050AB41 /* Media.xcassets in Resources */,
 				F8987D142FED7E810068FF7E /* Banner.png in Resources */,
 				F8987D152FED7E810068FF7E /* README.md in Resources */,
-				F8987D162FED7E810068FF7E /* recipes.json in Resources */,
 				F8987D172FED7E810068FF7E /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +399,7 @@
 				DEVELOPMENT_TEAM = YQ359H3655;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "NutriScan needs camera access to scan the barcodes!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -443,6 +432,7 @@
 				DEVELOPMENT_TEAM = YQ359H3655;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "NutriScan needs camera access to scan the barcodes!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -8,152 +8,122 @@
 import SwiftUI
 
 struct HistoryProductDetailView: View {
-    
+
     let item: HistoryItem
-    let recipes: [Recipe] = RecipeStorage.load()  // usiamo quelle salvate
+    @Environment(\.dismiss) private var dismiss
+
+    private var product: ScannedProduct { item.product }
+
+    private var dateLabel: String {
+        let f = DateFormatter()
+        f.dateStyle = .long
+        f.timeStyle = .short
+        return f.string(from: item.date)
+    }
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 22) {
-                
-                // MARK: - Product Image (piccola come nel bottom sheet)
-                if let imageURLString = item.product.imageURL, let url = URL(string: imageURLString) {
-                    AsyncImage(url: url) { img in
-                        img.resizable().scaledToFit()
+            VStack(alignment: .leading, spacing: 20) {
+
+                // Immagine
+                if let urlStr = product.imageURL,
+                   let url = URL(string: urlStr) {
+                    AsyncImage(url: url) { image in
+                        image.resizable().scaledToFill()
                     } placeholder: {
-                        Rectangle().fill(Color.gray.opacity(0.2))
+                        ProgressView().frame(height: 200)
                     }
-                    .frame(maxWidth: 180, maxHeight: 180)
-                    .cornerRadius(14)
-                    .padding(.top, 20)
-                } else {
-                    // Fallback placeholder when there's no valid image URL
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.1))
-                        .frame(maxWidth: 180, maxHeight: 180)
-                        .cornerRadius(14)
-                        .padding(.top, 20)
+                    .frame(height: 200)
+                    .clipped()
+                    .cornerRadius(16)
                 }
-                
-                // MARK: - Title + Brand
+
+                // Header
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(item.product.name)
+                    Text(product.name)
                         .font(.title2.bold())
-                    if !item.product.brand.isEmpty {
-                        Text(item.product.brand)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                    }
+                    Text(product.brand)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    Text("Scanned on \(dateLabel)")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
-                .padding(.horizontal)
-                
-                Divider()
-                
-                // MARK: - Nutritional Values
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Nutritional values (per 100g)")
-                        .font(.headline)
-                    
-                    HStack(spacing: 16) {
-                        nutrientBox(title: "Calories", value: "\(item.product.calories) kcal")
-                        nutrientBox(title: "Fats", value: "\(item.product.fats) g")
-                        nutrientBox(title: "Sugars", value: "\(item.product.sugars) g")
-                        nutrientBox(title: "Proteins", value: "\(item.product.proteins) g")
+
+                // Score banner
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Nutritional score")
+                            .font(.caption)
+                            .foregroundColor(.white.opacity(0.85))
+                        Text("\(product.score) / 100")
+                            .font(.title3.bold())
+                            .foregroundColor(.white)
                     }
+                    Spacer()
+                    Image(systemName: scoreIcon(product.score))
+                        .font(.system(size: 32))
+                        .foregroundColor(.white)
                 }
-                .padding(.horizontal)
-                
-                Divider()
-                
-                // MARK: - Suggested Recipes
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Suggested recipes")
-                        .font(.title3.bold())
-                    
-                    let suggested = aiSuggestedRecipes(for: item.product, from: recipes)
-                    
-                    if suggested.isEmpty {
-                        Text("No recipes matched.")
-                            .foregroundColor(.secondary)
-                    } else {
-                        ForEach(suggested) { recipe in
-                            NavigationLink {
-                                RecipeDetailView(recipe: recipe)
-                            } label: {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(recipe.name)
-                                            .font(.headline)
-                                        Text(recipe.category)
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                    }
-                                    Spacer()
-                                    Image(systemName: "chevron.right")
-                                        .foregroundColor(.gray)
-                                }
-                                .padding(.vertical, 4)
-                            }
-                        }
-                    }
+                .padding()
+                .background(scoreColor(product.score).gradient)
+                .cornerRadius(14)
+
+                // Nutritional values
+                Text("Nutritional values (per 100g)")
+                    .font(.headline)
+
+                VStack(spacing: 10) {
+                    // FIX: Int(calories) per le kcal, %.1f per i grammi
+                    nutrientRow(icon: "flame.fill",      color: .orange, label: "Calories",  value: "\(Int(product.calories)) kcal")
+                    nutrientRow(icon: "cube.fill",       color: .blue,   label: "Sugars",    value: String(format: "%.1f g", product.sugars))
+                    nutrientRow(icon: "drop.fill",       color: .yellow, label: "Fat",       value: String(format: "%.1f g", product.fats))
+                    nutrientRow(icon: "bolt.heart.fill", color: .red,    label: "Proteins",  value: String(format: "%.1f g", product.proteins))
                 }
-                .padding(.horizontal)
-                
-                Spacer()
             }
+            .padding()
         }
-        .navigationTitle("Product")
+        .navigationTitle("Product Detail")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Done") { dismiss() }
+            }
+        }
     }
-    
-    
-    // MARK: - Nutrient Mini Boxes
-    func nutrientBox(title: String, value: String) -> some View {
-        VStack {
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.secondary)
+
+    // MARK: - Helpers
+
+    private func nutrientRow(icon: String, color: Color, label: String, value: String) -> some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(color)
+                .frame(width: 28)
+            Text(label)
+                .font(.subheadline)
+            Spacer()
             Text(value)
-                .font(.headline)
+                .font(.subheadline.bold())
         }
-        .frame(maxWidth: .infinity)
-        .padding(12)
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(Color(.secondarySystemBackground))
+        .cornerRadius(10)
     }
-    
-    
-    // MARK: - Suggested Recipes Logic
-    func aiSuggestedRecipes(for product: ScannedProduct, from recipes: [Recipe]) -> [Recipe] {
-        
-        let nameWords = product.name.lowercased().split(separator: " ")
-        
-        // score recipes
-        let scored = recipes.map { recipe -> (Recipe, Int) in
-            var score = 0
-            
-            // match on ingredients
-            for word in nameWords {
-                if recipe.ingredients.joined().lowercased().contains(word) {
-                    score += 4
-                }
-            }
-            
-            // match on recipe name
-            for word in nameWords {
-                if recipe.name.lowercased().contains(word) {
-                    score += 6
-                }
-            }
-            
-            return (recipe, score)
+
+    private func scoreColor(_ score: Int) -> Color {
+        switch score {
+        case 75...100: return .green
+        case 50..<75:  return .yellow
+        default:       return .red
         }
-        
-        // take the best 3
-        return scored
-            .sorted { $0.1 > $1.1 }
-            .prefix(3)
-            .map { $0.0 }
+    }
+
+    private func scoreIcon(_ score: Int) -> String {
+        switch score {
+        case 75...100: return "checkmark.seal.fill"
+        case 50..<75:  return "exclamationmark.triangle.fill"
+        default:       return "xmark.octagon.fill"
+        }
     }
 }
-

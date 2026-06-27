@@ -9,99 +9,115 @@
 import SwiftUI
 
 struct HistoryView: View {
-    
+
     @Binding var history: [HistoryItem]
-    
-    @State private var showClearAlert = false
-    
+    @State private var showDeleteAllConfirm = false
+    @State private var selectedItem: HistoryItem? = nil
+
+    // Raggruppa per data (giorno)
+    private var groupedHistory: [(String, [HistoryItem])] {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+
+        let grouped = Dictionary(grouping: history) { item in
+            formatter.string(from: item.date)
+        }
+
+        return grouped
+            .sorted { a, b in
+                // ordine decrescente per data
+                guard
+                    let da = history.first(where: { formatter.string(from: $0.date) == a.key })?.date,
+                    let db = history.first(where: { formatter.string(from: $0.date) == b.key })?.date
+                else { return false }
+                return da > db
+            }
+    }
+
     var body: some View {
         NavigationView {
             Group {
                 if history.isEmpty {
-                    
-                    // EMPTY STATE
-                    VStack(spacing: 12) {
-                        Image(systemName: "clock.arrow.circlepath")
-                            .font(.system(size: 44))
-                            .foregroundColor(.gray.opacity(0.7))
-                        
-                        Text("No scanned products yet")
-                            .font(.title3.bold())
-                            .foregroundColor(.primary)
-                        
-                        Text("Start scanning items and they will appear here.")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    
+                    emptyState
                 } else {
-                    
-                    // LISTA HISTORY
-                    List(history.sorted(by: { $0.date > $1.date })) { item in
-                        NavigationLink {
-                            HistoryProductDetailView(item: item)
-                        } label: {
-                            HStack(spacing: 12) {
-                                
-                                if let urlString = item.product.imageURL, let url = URL(string: urlString) {
-                                    AsyncImage(url: url) { img in
-                                        img.resizable().scaledToFill()
-                                    } placeholder: {
-                                        Color.gray.opacity(0.2)
+                    List {
+                        ForEach(groupedHistory, id: \.0) { (dateLabel, items) in
+                            Section(header: Text(dateLabel).font(.subheadline.bold())) {
+                                ForEach(items) { item in
+                                    Button {
+                                        selectedItem = item
+                                    } label: {
+                                        // FIX: usa finalmente HistoryRow
+                                        HistoryRow(item: item)
                                     }
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                } else {
-                                    Color.gray.opacity(0.2)
-                                        .frame(width: 60, height: 60)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .buttonStyle(.plain)
+                                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                                 }
-                                
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(item.product.name)
-                                        .font(.headline)
-                                    Text(item.product.brand)
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                    Text(item.date, style: .date)
-                                        .font(.caption2)
-                                        .foregroundColor(.secondary)
+                                // FIX: swipe-to-delete singolo elemento
+                                .onDelete { indexSet in
+                                    deleteItems(in: items, at: indexSet)
                                 }
                             }
-                            .padding(.vertical, 4)
                         }
                     }
+                    .listStyle(.insetGrouped)
                 }
             }
             .navigationTitle("History")
-            
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if !history.isEmpty {
+                if !history.isEmpty {
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Button(role: .destructive) {
-                            showClearAlert = true
+                            showDeleteAllConfirm = true
                         } label: {
                             Image(systemName: "trash")
                         }
                     }
                 }
             }
-            
-            .alert("Clear History",
-                   isPresented: $showClearAlert,
-                   actions: {
-                Button("Cancel", role: .cancel) {}
-                Button("Delete All", role: .destructive) {
-                    history.removeAll()
+            // FIX: confirmationDialog invece di cancellare subito
+            .confirmationDialog(
+                "Delete entire history?",
+                isPresented: $showDeleteAllConfirm,
+                titleVisibility: .visible
+            ) {
+                Button("Delete all", role: .destructive) {
+                    withAnimation { history.removeAll() }
                 }
-            },
-                   message: {
-                Text("Are you sure you want to erase all scanned products?")
-            })
+                Button("Cancel", role: .cancel) {}
+            }
+            .sheet(item: $selectedItem) { item in
+                NavigationView {
+                    HistoryProductDetailView(item: item)
+                }
+            }
+        }
+    }
+
+    // MARK: - Empty state
+
+    private var emptyState: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "clock.arrow.circlepath")
+                .font(.system(size: 56))
+                .foregroundColor(.secondary.opacity(0.5))
+            Text("No scans yet")
+                .font(.title3.bold())
+            Text("Scanned products will appear here.")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding()
+    }
+
+    // MARK: - Delete
+
+    private func deleteItems(in section: [HistoryItem], at offsets: IndexSet) {
+        let toDelete = offsets.map { section[$0].id }
+        withAnimation {
+            history.removeAll { toDelete.contains($0.id) }
         }
     }
 }
-

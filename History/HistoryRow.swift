@@ -9,67 +9,76 @@
 import SwiftUI
 
 struct HistoryRow: View {
-    
-    let product: ScannedProduct
-    let date: Date
-    
+
+    let item: HistoryItem
+
+    private var product: ScannedProduct { item.product }
+
+    private var timeLabel: String {
+        let f = DateFormatter()
+        f.dateFormat = "HH:mm"
+        return f.string(from: item.date)
+    }
+
     var body: some View {
-        HStack(spacing: 12) {
-            
-            // Immagine prodotto
-            if let urlStr = product.imageURL,
-               let url = URL(string: urlStr) {
-                AsyncImage(url: url) { img in
-                    img.resizable().scaledToFill()
-                } placeholder: {
-                    Color.gray.opacity(0.2)
+        HStack(spacing: 14) {
+
+            // Thumbnail prodotto
+            Group {
+                if let urlStr = product.imageURL,
+                   let url = URL(string: urlStr) {
+                    AsyncImage(url: url) { img in
+                        img.resizable().scaledToFill()
+                    } placeholder: {
+                        Color(.systemGray5)
+                    }
+                } else {
+                    Color(.systemGray5)
+                        .overlay(
+                            Image(systemName: "barcode.viewfinder")
+                                .foregroundColor(.secondary)
+                        )
                 }
-                .frame(width: 60, height: 60)
-                .cornerRadius(12)
-            } else {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.gray.opacity(0.15))
-                    .frame(width: 60, height: 60)
             }
-            
+            .frame(width: 54, height: 54)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+            // Info
             VStack(alignment: .leading, spacing: 4) {
                 Text(product.name)
-                    .font(.headline)
+                    .font(.subheadline.bold())
                     .lineLimit(1)
-                
                 Text(product.brand)
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
-                    .lineLimit(1)
-                
-                Text(date.formatted(date: .abbreviated, time: .shortened))
-                    .foregroundColor(.gray)
                     .font(.caption)
-            }
-            
-            Spacer()
-            
-            // Score stile Yuka
-            VStack {
-                Text("\(product.score)")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                Text("/100")
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+                Text("\(Int(product.calories)) kcal · \(timeLabel)")
                     .font(.caption2)
-                    .foregroundColor(.white.opacity(0.8))
+                    .foregroundColor(.secondary)
             }
-            .frame(width: 50, height: 50)
-            .background(scoreColor(product.score))
-            .clipShape(Circle())
+
+            Spacer()
+
+            // Score circle
+            ZStack {
+                Circle()
+                    .fill(scoreColor(product.score))
+                    .frame(width: 40, height: 40)
+                Text("\(product.score)")
+                    .font(.caption.bold())
+                    .foregroundColor(.white)
+            }
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, 4)
     }
-    
+
+    // MARK: - Helpers
+
     private func scoreColor(_ score: Int) -> Color {
         switch score {
         case 75...100: return .green
-        case 50..<75: return .yellow
-        default: return .red
+        case 50..<75:  return Color.yellow.opacity(0.9)
+        default:       return .red
         }
     }
 }

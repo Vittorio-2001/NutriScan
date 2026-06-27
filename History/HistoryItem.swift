@@ -9,8 +9,14 @@
 import Foundation
 
 struct HistoryItem: Identifiable, Equatable, Codable {
-    let id = UUID()
+
+    let id: UUID          
     let product: ScannedProduct
     let date: Date
-}
 
+    init(id: UUID = UUID(), product: ScannedProduct, date: Date) {
+        self.id      = id
+        self.product = product
+        self.date    = date
+    }
+}
