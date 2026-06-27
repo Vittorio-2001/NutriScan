@@ -125,7 +125,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         btn.backgroundColor = UIColor.white.withAlphaComponent(0.15)
         btn.setTitleColor(.white, for: .normal)
         btn.layer.cornerRadius = 22
-        btn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
 

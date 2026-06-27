@@ -13,6 +13,6 @@ struct HapticManager {
     static func success() {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
-        AudioServicesPlaySystemSound(1057) // piccolo beep
+        AudioServicesPlaySystemSound(1057)
     }
 }

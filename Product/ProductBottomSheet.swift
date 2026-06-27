@@ -85,7 +85,7 @@ struct ProductBottomSheet: View {
                             Button {
                                 selectedRecipe = recipe
                             } label: {
-                                RecipeCardView(recipe: recipe)
+                                
                             }
                             .buttonStyle(.plain)
                         }

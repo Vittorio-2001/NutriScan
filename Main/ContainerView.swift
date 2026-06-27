@@ -34,15 +34,6 @@ struct ContainerView: View {
                     Text("History")
                 }
         }
-        
-        // Salva ricette quando cambiano
-        .onChange(of: recipes) { newValue in
-            RecipeStorage.save(newValue)
-        }
-        
-        // Salva history quando cambia
-        .onChange(of: history) { newValue in
-            HistoryStorage.save(newValue)
-        }
     }
 }
+

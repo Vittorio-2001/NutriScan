@@ -12,26 +12,71 @@ struct RecipeFormView: View {
     @Binding var recipes: [Recipe]
     @Environment(\.dismiss) private var dismiss
 
-    // Form state
-    @State private var name        = ""
-    @State private var category    = "Pasta"
-    @State private var prepTime    = 20
-    @State private var calories    = ""
-    @State private var difficulty  = "Easy"        // ← ora usato davvero
-    @State private var ingredients: [String] = [""]
-    @State private var steps:       [String] = [""]
-    @State private var selectedImage: UIImage? = nil
-    @State private var showImagePicker = false
-    @State private var isFavorite  = false
+    // Ricetta da modificare (nil = modalità "Crea")
+    private let editingRecipe: Recipe?
 
-    private let categories  = ["Pasta", "Salad", "Soup", "Meat", "Fish", "Dessert", "Healthy", "Other"]
+    // Form state
+    @State private var name:         String
+    @State private var category:     String
+    @State private var prepTime:     Int
+    @State private var calories:     String
+    @State private var difficulty:   String
+    @State private var ingredients:  [String]
+    @State private var steps:        [String]
+    @State private var selectedImage: UIImage?
+    @State private var showImagePicker = false
+    @State private var isFavorite:   Bool
+
+    private let categories   = ["Pasta", "Salad", "Soup", "Meat", "Fish", "Dessert", "Healthy", "Other"]
     private let difficulties = ["Easy", "Medium", "Hard"]
 
-    // Save abilitato solo se nome e almeno 1 ingrediente non vuoto
+    private var isEditing: Bool { editingRecipe != nil }
+
     private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespaces).isEmpty &&
         ingredients.contains { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
     }
+
+    // MARK: - Init (create)
+
+    init(recipes: Binding<[Recipe]>) {
+        self._recipes      = recipes
+        self.editingRecipe = nil
+        _name         = State(initialValue: "")
+        _category     = State(initialValue: "Pasta")
+        _prepTime     = State(initialValue: 20)
+        _calories     = State(initialValue: "")
+        _difficulty   = State(initialValue: "Easy")
+        _ingredients  = State(initialValue: [""])
+        _steps        = State(initialValue: [""])
+        _selectedImage = State(initialValue: nil)
+        _isFavorite   = State(initialValue: false)
+    }
+
+    // MARK: - Init (edit) — pre-popola tutti i campi dalla ricetta esistente
+
+    init(recipes: Binding<[Recipe]>, editingRecipe: Recipe) {
+        self._recipes      = recipes
+        self.editingRecipe = editingRecipe
+
+        _name        = State(initialValue: editingRecipe.name)
+        _category    = State(initialValue: editingRecipe.category)
+        _prepTime    = State(initialValue: editingRecipe.prepTime)
+        _calories    = State(initialValue: editingRecipe.calories > 0 ? String(editingRecipe.calories) : "")
+        _difficulty  = State(initialValue: editingRecipe.difficulty)
+        _ingredients = State(initialValue: editingRecipe.ingredients.isEmpty ? [""] : editingRecipe.ingredients)
+        _steps       = State(initialValue: editingRecipe.steps.isEmpty       ? [""] : editingRecipe.steps)
+        _isFavorite  = State(initialValue: editingRecipe.isFavorite)
+
+        // Carica l'immagine salvata (se presente)
+        if let data = editingRecipe.imageData, let img = UIImage(data: data) {
+            _selectedImage = State(initialValue: img)
+        } else {
+            _selectedImage = State(initialValue: nil)
+        }
+    }
+
+    // MARK: - Body
 
     var body: some View {
         NavigationView {
@@ -39,17 +84,24 @@ struct RecipeFormView: View {
 
                 // ── Foto ────────────────────────────────────────────
                 Section {
-                    Button {
-                        showImagePicker = true
-                    } label: {
+                    Button { showImagePicker = true } label: {
                         HStack {
                             Spacer()
                             if let img = selectedImage {
-                                Image(uiImage: img)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 120, height: 120)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                ZStack(alignment: .topTrailing) {
+                                    Image(uiImage: img)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 140, height: 140)
+                                        .clipShape(RoundedRectangle(cornerRadius: 14))
+
+                                    // Indicatore "tap per cambiare"
+                                    Image(systemName: "pencil.circle.fill")
+                                        .font(.title3)
+                                        .foregroundColor(.white)
+                                        .background(Circle().fill(Color.black.opacity(0.4)))
+                                        .padding(6)
+                                }
                             } else {
                                 VStack(spacing: 8) {
                                     Image(systemName: "camera.fill")
@@ -59,9 +111,9 @@ struct RecipeFormView: View {
                                         .font(.subheadline)
                                         .foregroundColor(.green)
                                 }
-                                .frame(width: 120, height: 120)
+                                .frame(width: 140, height: 140)
                                 .background(Color(.secondarySystemBackground))
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .clipShape(RoundedRectangle(cornerRadius: 14))
                             }
                             Spacer()
                         }
@@ -77,7 +129,6 @@ struct RecipeFormView: View {
                         ForEach(categories, id: \.self) { Text($0) }
                     }
 
-                    // FIX: Picker difficulty funzionante
                     Picker("Difficulty", selection: $difficulty) {
                         ForEach(difficulties, id: \.self) { Text($0) }
                     }
@@ -88,7 +139,6 @@ struct RecipeFormView: View {
                         Stepper("\(prepTime) min", value: $prepTime, in: 1...300, step: 5)
                     }
 
-                    // FIX: keyboardType .numberPad
                     HStack {
                         Text("Calories (kcal)")
                         Spacer()
@@ -105,8 +155,7 @@ struct RecipeFormView: View {
                 Section(header: HStack {
                     Text("Ingredients")
                     Spacer()
-                    // Contatore
-                    let filled = ingredients.filter { !$0.isEmpty }.count
+                    let filled = ingredients.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }.count
                     Text("\(filled) added")
                         .font(.caption)
                         .foregroundColor(.secondary)
@@ -137,7 +186,7 @@ struct RecipeFormView: View {
                 Section(header: HStack {
                     Text("Steps")
                     Spacer()
-                    Text("\(steps.filter { !$0.isEmpty }.count) added")
+                    Text("\(steps.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }.count) added")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }) {
@@ -177,14 +226,14 @@ struct RecipeFormView: View {
                     }
                 }
             }
-            .navigationTitle("New Recipe")
+            .navigationTitle(isEditing ? "Edit Recipe" : "New Recipe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") { saveRecipe() }
+                    Button(isEditing ? "Update" : "Save") { saveRecipe() }
                         .bold()
                         .disabled(!canSave)
                 }
@@ -195,26 +244,34 @@ struct RecipeFormView: View {
         }
     }
 
-    // MARK: - Save
+    // MARK: - Save / Update
 
     private func saveRecipe() {
         let imageData = selectedImage.flatMap { $0.jpegData(compressionQuality: 0.7) }
 
-        let newRecipe = Recipe(
-            id:          UUID().uuidString,
+        let recipe = Recipe(
+            id:          editingRecipe?.id ?? UUID().uuidString,
             name:        name.trimmingCharacters(in: .whitespaces),
-            imageName:   nil,
+            imageName:   editingRecipe?.imageName,
             imageData:   imageData,
             calories:    Int(calories) ?? 0,
             prepTime:    prepTime,
-            difficulty:  difficulty,              // ← FIX: non più "Easy" hardcoded
+            difficulty:  difficulty,
             ingredients: ingredients.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
             steps:       steps.filter       { !$0.trimmingCharacters(in: .whitespaces).isEmpty },
             category:    category,
             isFavorite:  isFavorite
         )
 
-        recipes.append(newRecipe)
+        if let existing = editingRecipe,
+           let idx = recipes.firstIndex(where: { $0.id == existing.id }) {
+            // ← Modalità edit: sostituisce la ricetta esistente
+            recipes[idx] = recipe
+        } else {
+            // ← Modalità create: aggiunge
+            recipes.append(recipe)
+        }
+
         RecipeStorage.save(recipes)
         dismiss()
     }

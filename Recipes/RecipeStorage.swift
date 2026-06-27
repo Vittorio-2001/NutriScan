@@ -24,6 +24,6 @@ struct RecipeStorage {
            let decoded = try? decoder.decode([Recipe].self, from: data) {
             return decoded
         }
-        return loadInitialRecipes() // se non ci sono ricette salvate, usa le demo
+        return []
     }
 }
