@@ -8,32 +8,30 @@
 import SwiftUI
 
 struct ContainerView: View {
-    
-    @State private var recipes: [Recipe] = RecipeStorage.load()
-    
+
+    @State private var recipes: [Recipe]    = RecipeStorage.load()
     @State private var history: [HistoryItem] = HistoryStorage.load()
-    
+
     var body: some View {
         TabView {
-            
             ScanView(recipes: $recipes, history: $history)
                 .tabItem {
-                    Image(systemName: "camera.viewfinder")
-                    Text("Scan")
+                    Label("Scan", systemImage: "camera.viewfinder")
                 }
-            
+
             RecipesView(recipes: $recipes)
                 .tabItem {
-                    Image(systemName: "fork.knife")
-                    Text("Recipes")
+                    Label("Recipes", systemImage: "fork.knife")
                 }
-            
+
             HistoryView(history: $history)
                 .tabItem {
-                    Image(systemName: "clock.arrow.circlepath")
-                    Text("History")
+                    Label("History", systemImage: "clock.arrow.circlepath")
                 }
+        }
+
+        .onChange(of: recipes) { newValue in
+            RecipeStorage.save(newValue)
         }
     }
 }
-

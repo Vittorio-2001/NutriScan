@@ -48,13 +48,11 @@ struct HistoryView: View {
                                     Button {
                                         selectedItem = item
                                     } label: {
-                                        // FIX: usa finalmente HistoryRow
                                         HistoryRow(item: item)
                                     }
                                     .buttonStyle(.plain)
                                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                                 }
-                                // FIX: swipe-to-delete singolo elemento
                                 .onDelete { indexSet in
                                     deleteItems(in: items, at: indexSet)
                                 }
@@ -76,7 +74,6 @@ struct HistoryView: View {
                     }
                 }
             }
-            // FIX: confirmationDialog invece di cancellare subito
             .confirmationDialog(
                 "Delete entire history?",
                 isPresented: $showDeleteAllConfirm,
@@ -84,6 +81,7 @@ struct HistoryView: View {
             ) {
                 Button("Delete all", role: .destructive) {
                     withAnimation { history.removeAll() }
+                    HistoryStorage.save(history)
                 }
                 Button("Cancel", role: .cancel) {}
             }
@@ -119,5 +117,6 @@ struct HistoryView: View {
         withAnimation {
             history.removeAll { toDelete.contains($0.id) }
         }
+        HistoryStorage.save(history)   // ← salva subito, non aspetta onChange
     }
 }

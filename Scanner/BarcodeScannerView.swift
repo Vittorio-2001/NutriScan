@@ -21,6 +21,7 @@ struct BarcodeScannerView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: ScannerViewController, context: Context) {
+        // Aggiorna solo il flag di processing — non tocca mai l'hardware della camera
         uiViewController.isScanning = isScanning
     }
 
@@ -49,24 +50,41 @@ protocol ScannerViewControllerDelegate: AnyObject {
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     weak var delegate: ScannerViewControllerDelegate?
+
+    // La sessione viene configurata UNA VOLTA e tenuta in memoria.
+    // Si fa solo startRunning / stopRunning al cambio tab.
     private var captureSession: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
 
-    var isScanning: Bool = true {
-        didSet {
-            if isScanning {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.captureSession?.startRunning()
-                }
-            } else {
-                captureSession?.stopRunning()
-            }
-        }
-    }
+    // Thread dedicato per tutta la gestione AVFoundation
+    private let sessionQueue = DispatchQueue(label: "nutriscan.camera.session", qos: .userInitiated)
+
+    // Controlla solo il processing dei codici, non l'hardware
+    var isScanning: Bool = true
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         checkCameraPermission()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Chiamato da UIKit esattamente quando la tab diventa visibile
+        sessionQueue.async { [weak self] in
+            guard let self, let session = self.captureSession, !session.isRunning else { return }
+            session.startRunning()
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Chiamato da UIKit esattamente quando si cambia tab
+        sessionQueue.async { [weak self] in
+            guard let self, let session = self.captureSession, session.isRunning else { return }
+            session.stopRunning()
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -91,6 +109,54 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             showPermissionDeniedUI()
         @unknown default:
             showPermissionDeniedUI()
+        }
+    }
+
+    // MARK: - Camera setup (tutto su sessionQueue, mai sul main thread)
+
+    private func setupCamera() {
+        sessionQueue.async { [weak self] in
+            guard let self else { return }
+
+            let session = AVCaptureSession()
+            session.beginConfiguration()
+
+            guard
+                let videoDevice = AVCaptureDevice.default(for: .video),
+                let videoInput  = try? AVCaptureDeviceInput(device: videoDevice),
+                session.canAddInput(videoInput)
+            else {
+                session.commitConfiguration()
+                return
+            }
+
+            session.addInput(videoInput)
+
+            let metadataOutput = AVCaptureMetadataOutput()
+            guard session.canAddOutput(metadataOutput) else {
+                session.commitConfiguration()
+                return
+            }
+
+            session.addOutput(metadataOutput)
+            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            metadataOutput.metadataObjectTypes = [.ean13, .ean8, .upce, .code128, .qr]
+
+            session.commitConfiguration()
+
+            // Preview layer: creato in background, aggiunto al layer sul main thread
+            let preview = AVCaptureVideoPreviewLayer(session: session)
+            preview.videoGravity = .resizeAspectFill
+
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                preview.frame = self.view.layer.bounds
+                self.view.layer.insertSublayer(preview, at: 0)
+                self.previewLayer = preview
+            }
+
+            self.captureSession = session
+            session.startRunning()
         }
     }
 
@@ -125,6 +191,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         btn.backgroundColor = UIColor.white.withAlphaComponent(0.15)
         btn.setTitleColor(.white, for: .normal)
         btn.layer.cornerRadius = 22
+        btn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
 
@@ -148,37 +215,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     @objc private func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
-    }
-
-    // MARK: - Camera setup
-
-    private func setupCamera() {
-        let session = AVCaptureSession()
-
-        guard let videoDevice = AVCaptureDevice.default(for: .video),
-              let videoInput  = try? AVCaptureDeviceInput(device: videoDevice),
-              session.canAddInput(videoInput) else { return }
-
-        session.addInput(videoInput)
-
-        let metadataOutput = AVCaptureMetadataOutput()
-        guard session.canAddOutput(metadataOutput) else { return }
-        session.addOutput(metadataOutput)
-
-        metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        metadataOutput.metadataObjectTypes = [.ean13, .ean8, .upce, .code128, .qr]
-
-        let preview = AVCaptureVideoPreviewLayer(session: session)
-        preview.videoGravity = .resizeAspectFill
-        preview.frame = view.layer.bounds
-        view.layer.insertSublayer(preview, at: 0)
-
-        captureSession = session
-        previewLayer   = preview
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            session.startRunning()
-        }
     }
 
     // MARK: - Metadata delegate

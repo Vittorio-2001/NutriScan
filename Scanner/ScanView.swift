@@ -108,7 +108,13 @@ struct ScanView: View {
                 }
             }
         }
-        .onAppear { reticlePulse = true }
+        .onAppear {
+            reticlePulse = true
+            isScanning   = true
+        }
+        .onDisappear {
+            isProcessingScan = false
+        }
         .sheet(item: $scannedProduct, onDismiss: {
             isScanning       = true
             isProcessingScan = false
@@ -143,6 +149,7 @@ struct ScanView: View {
                 )
                 await MainActor.run {
                     history.append(HistoryItem(product: product, date: Date()))
+                    HistoryStorage.save(history)   // ← salva subito
                     scannedProduct = product
                 }
             } else {
